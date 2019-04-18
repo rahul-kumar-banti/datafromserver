@@ -1,24 +1,22 @@
 package com.rahul.datafromserver;
-
-import android.content.Context;
 import android.os.AsyncTask;
-import android.util.JsonReader;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.rahul.datafromserver.LoginActivity;
-import com.rahul.datafromserver.MainActivity;
+
+
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.Console;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class apiClient extends AsyncTask<String,String,String> {
 String data="",mydata="";
@@ -35,6 +33,7 @@ String data="",mydata="";
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected String doInBackground(String... strings) {
         try {
@@ -44,6 +43,19 @@ String data="",mydata="";
             publishProgress(String.valueOf((int)(i++)));
 
             HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("User-Agent", "Java client");
+            String urlprms="user_name=rahulbanti36@gmail.com&password=1234&auth=abcxyz";
+            httpURLConnection.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            byte[] PostData=urlprms.getBytes(StandardCharsets.UTF_8);
+
+            try (DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream())) {
+                wr.write(PostData);
+            }
+
+
+//
             if (httpURLConnection.getResponseCode() == 200) {
                 InputStream inputStream=httpURLConnection.getInputStream();
                 InputStreamReader inputStreamReader=new InputStreamReader(inputStream,"utf-8");
