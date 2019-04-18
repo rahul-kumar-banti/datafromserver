@@ -40,7 +40,8 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-
+public  static  TextView tvresult;
+Button fetchdata;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -63,12 +64,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+   apiClient aclient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+        fetchdata=findViewById(R.id.datafetch);
+        fetchdata.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+        aclient=new apiClient();
+        aclient.execute();
+            }
+        });
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 

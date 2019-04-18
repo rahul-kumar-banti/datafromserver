@@ -21,7 +21,7 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -42,11 +42,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rounded_text"
+                    android:drawableLeft="@drawable/user"
                     android:hint="@string/hint_email"
                     android:inputType="textEmailAddress"
                     android:padding="10dp"
                     android:singleLine="true"
-                    android:drawableLeft="@drawable/user"
                     android:textColor="@color/input_login"
                     android:textColorHint="@color/input_login_hint" />
 
@@ -62,11 +62,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/rounded_text"
+                    android:drawableLeft="@drawable/pass"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword"
                     android:padding="10dp"
                     android:singleLine="true"
-                    android:drawableLeft="@drawable/pass"
                     android:textColor="#000"
                     android:textColorHint="@color/input_login_hint" />
 
@@ -83,4 +83,16 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/datafetch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fetch data" />
+
+    <TextView
+        android:id="@+id/resultView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:text="TextView" />
 </LinearLayout>
