@@ -76,17 +76,24 @@ Button fetchdata;
 
             @Override
             public void onClick(View v) {
-        try{
-            aclient=new apiClient(LoginActivity.this);
-             aclient.execute("rahul","1234");
-        }
-        catch (Exception e){
-           errorShow(e.getMessage());
+                if(ConnectionChecker.isConnectedToNetwork(LoginActivity.this)) {
 
 
-        }
+                    try {
+                        aclient = new apiClient(LoginActivity.this);
+                        aclient.execute("rahul", "1234");
+                    } catch (Exception e) {
+                        errorShow(e.getMessage());
 
+
+                    }
+                }
+           else
+                {
+                    Toast.makeText(LoginActivity.this,"check internet connectivity",Toast.LENGTH_LONG).show();
+                }
             }
+
         });
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
