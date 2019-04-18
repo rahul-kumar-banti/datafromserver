@@ -39,8 +39,8 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
-public  static  TextView tvresult;
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>,resultOnLogin {
+public   TextView tvresult;
 Button fetchdata;
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -70,13 +70,22 @@ Button fetchdata;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+        tvresult=findViewById(R.id.resultView);
         fetchdata=findViewById(R.id.datafetch);
         fetchdata.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-        aclient=new apiClient();
-        aclient.execute();
+        try{
+            aclient=new apiClient(LoginActivity.this);
+             aclient.execute("rahul","1234");
+        }
+        catch (Exception e){
+           errorShow(e.getMessage());
+
+
+        }
+
             }
         });
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -291,6 +300,12 @@ Button fetchdata;
         mEmailView.setAdapter(adapter);
     }
 
+    @Override
+    public void resultpublish(String s) {
+        errorShow(s);
+        this.tvresult.setText(s);
+    }
+
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -367,6 +382,10 @@ Button fetchdata;
             mAuthTask = null;
             showProgress(false);
         }
+    }
+    public  void errorShow(String s){
+        Toast.makeText(LoginActivity.this,""+s,Toast.LENGTH_LONG).show();
+
     }
 }
 
