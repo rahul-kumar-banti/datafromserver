@@ -3,11 +3,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
-
-
-
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -19,7 +14,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class apiClient extends AsyncTask<String,String,String> {
-String data="",mydata="";
+    String data="",mydata="";
     public resultOnLogin rl;
 
     public apiClient(resultOnLogin r) {
@@ -64,7 +59,7 @@ String data="",mydata="";
                 while(line!=null){
                     line=bufferedReader.readLine();
                     if(line!=null)
-                    data += line;
+                        data += line;
 
                 }
 
@@ -94,8 +89,8 @@ String data="",mydata="";
 
     @Override
     protected void onPostExecute(String s) {
-this.mydata=s;
-rl.resultpublish(this.mydata);
+        this.mydata=s;
+        rl.resultpublish(this.mydata);
 
     }
 }
